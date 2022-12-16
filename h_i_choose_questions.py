@@ -23,6 +23,7 @@ count = numpy.count_nonzero(ev > 1)
 machine = FactorAnalyzer(n_factors=count-1, rotation='varimax')
 machine.fit(data)
 output = machine.loadings_
+print('------------factor_loadings-----------')
 print(output)
 
 df = pandas.DataFrame(output)
@@ -52,6 +53,7 @@ df_new_total = df_total
 for idx, v in enumerate(slope ):
 	df_new_total[idx] = df_new_total[idx].apply(lambda x: x*v)
     # print(idx, x)
+print('------------df_new_total-----------')
 print(df_new_total)
 df_combine = pandas.concat([df_new_total.iloc[:, 0:3].rename(columns={"index_0": "index", 0: "load","rank_0": "rank"})
 	, df_new_total.iloc[:, 3:6].rename(columns={"index_1": "index", 1: "load","rank_1": "rank"})
@@ -81,7 +83,7 @@ for i in range(6):
 	locals()['df_'+str(i)] = locals()['df_'+str(i)].sort_values(by=['rank_'+str(i)], ascending=False).reset_index()
 	locals()['df_'+str(i)] = locals()['df_'+str(i)].rename(columns={"index": "index_"+str(i)})
 df_total = pandas.concat([df_0, df_1, df_2, df_3, df_4, df_5], axis=1)
-
+print('------------df_total-----------')
 print(df_total)
 
 df_final = pandas.concat([df_total['index_0'].head(4)
